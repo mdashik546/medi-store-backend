@@ -1,14 +1,14 @@
 model Category {
-    id          String         @id @default(uuid())
-    name        String         @db.VarChar(100)
-    slug        String         @db.VarChar(100)
-    description String?        @db.Text
-    status      CategoryStatus @default(ACTIVE)
-    createdAt   DateTime       @default(now())
-    updatedAt   DateTime       @updatedAt
+  id          String         @id @default(uuid())
+  name        String         @db.VarChar(100)
+  slug        String         @db.VarChar(100)
+  description String?        @db.Text
+  status      CategoryStatus @default(ACTIVE)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
 }
 
 enum CategoryStatus {
-    ACTIVE
-    INACTIVE
+  ACTIVE
+  INACTIVE
 }

@@ -1,10 +1,10 @@
 model OrderItem {
-    id         String   @id @default(uuid())
-    orderId    String
-    medicineId String
-    authorId   String
-    price      Int
-    quantity   Int
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
+  id         String   @id @default(uuid())
+  orderId    String
+  medicineId String
+  authorId   String
+  price      Int
+  quantity   Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

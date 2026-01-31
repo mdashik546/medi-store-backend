@@ -11,7 +11,6 @@ export const middleware = (...roles: string[]) => {
        const session = await auth.api.getSession({
         headers: req.headers as any,
       });
-      console.log(session, "Session");
       if (!session) {
         return res.status(404).json({
           message: "You are unauthorized",
@@ -38,7 +37,6 @@ export const middleware = (...roles: string[]) => {
         });
       }
 
-      console.log(session);
       next();
     } catch (error) {
       throw error;

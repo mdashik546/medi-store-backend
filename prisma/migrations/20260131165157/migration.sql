@@ -123,7 +123,7 @@ CREATE TABLE "medicines" (
     "slug" VARCHAR(100),
     "price" INTEGER NOT NULL DEFAULT 0,
     "stock" INTEGER NOT NULL DEFAULT 0,
-    "authorId" TEXT NOT NULL,
+    "sellerId" TEXT NOT NULL,
     "categoryId" TEXT NOT NULL,
     "companyId" TEXT NOT NULL,
     "imageURL" TEXT,
@@ -193,7 +193,7 @@ CREATE INDEX "account_userId_idx" ON "account"("userId");
 CREATE INDEX "verification_identifier_idx" ON "verification"("identifier");
 
 -- CreateIndex
-CREATE INDEX "medicines_authorId_idx" ON "medicines"("authorId");
+CREATE INDEX "medicines_sellerId_idx" ON "medicines"("sellerId");
 
 -- CreateIndex
 CREATE INDEX "medicines_categoryId_idx" ON "medicines"("categoryId");
@@ -206,3 +206,6 @@ ALTER TABLE "session" ADD CONSTRAINT "session_userId_fkey" FOREIGN KEY ("userId"
 
 -- AddForeignKey
 ALTER TABLE "account" ADD CONSTRAINT "account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "medicines" ADD CONSTRAINT "medicines_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Company"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

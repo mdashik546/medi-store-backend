@@ -1,27 +1,28 @@
 model Medicine {
-    id          String         @id @default(uuid())
-    name        String         @db.VarChar(100)
-    slug        String?        @db.VarChar(100)
-    price       Int            @default(0)
-    stock       Int            @default(0)
-    authorId    String
-    categoryId  String
-    companyId   String
-    imageURL    String?
-    description String?        @db.Text
-    status      MedicineStatus @default(ACTIVE)
-    expiryDate  DateTime
-    createdAt   DateTime       @default(now())
-    updatedAt   DateTime       @updatedAt
+  id             String         @id @default(uuid())
+  name           String         @db.VarChar(100)
+  slug           String?        @db.VarChar(100)
+  price          Int            @default(0)
+  stock          Int            @default(0)
+  sellerId       String
+  categoryId     String?
+  companyId      String
+  companyDetails Company        @relation(fields: [companyId], references: [id],onDelete: Cascade)
+  imageURL       String?
+  description    String?        @db.Text
+  status         MedicineStatus @default(ACTIVE)
+  expiryDate     DateTime
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
 
-    @@index([authorId])
-    @@index([categoryId])
-    @@index([companyId])
-    @@map("medicines")
+  @@index([sellerId])
+  @@index([categoryId])
+  @@index([companyId])
+  @@map("medicines")
 }
 
 enum MedicineStatus {
-    ACTIVE
-    INACTIVE
-    OUT_OF_STOCK
+  ACTIVE
+  INACTIVE
+  OUT_OF_STOCK
 }

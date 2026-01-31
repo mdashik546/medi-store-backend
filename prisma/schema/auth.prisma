@@ -4,7 +4,7 @@ model User {
   email         String
   emailVerified Boolean   @default(false)
   image         String?
-  role          String?  @default("CUSTOMER")
+  role          String?   @default("CUSTOMER")
   status        String?   @default("ACTIVE")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -62,5 +62,3 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
-
-
