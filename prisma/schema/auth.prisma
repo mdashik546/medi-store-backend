@@ -1,7 +1,7 @@
 model User {
-  id            String    @id
+  id            String    @id @default(uuid())
   name          String
-  email         String
+  email         String    @unique
   emailVerified Boolean   @default(false)
   image         String?
   role          String?   @default("CUSTOMER")
@@ -10,8 +10,10 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+  carts         Cart[]
+  items         Order[]
+  reviews       Review[]
 
-  @@unique([email])
   @@map("users")
 }
 

@@ -30,9 +30,6 @@ const singleMedicine = async (id: string) => {
     where: {
       id,
     },
-    select: {
-      id: true,
-    },
   });
   if (!medicineInfo) {
     throw new Error("MedicineId is Invalid!!");

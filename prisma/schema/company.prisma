@@ -1,7 +1,7 @@
 model Company {
-  id        String     @id @default(uuid())
-  name      String
-  medicines Medicine[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id          String     @id @default(uuid())
+  companyName String
+  medicines   Medicine[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }

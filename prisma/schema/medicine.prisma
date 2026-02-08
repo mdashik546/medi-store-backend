@@ -1,19 +1,24 @@
 model Medicine {
-  id             String         @id @default(uuid())
-  name           String         @db.VarChar(100)
-  slug           String?        @db.VarChar(100)
-  price          Int            @default(0)
-  stock          Int            @default(0)
-  sellerId       String
-  categoryId     String?
-  companyId      String
-  companyDetails Company        @relation(fields: [companyId], references: [id],onDelete: Cascade)
-  imageURL       String?
-  description    String?        @db.Text
-  status         MedicineStatus @default(ACTIVE)
-  expiryDate     DateTime
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  id         String    @id @default(uuid())
+  name       String    @db.VarChar(100)
+  slug       String?   @db.VarChar(100)
+  price      Int       @default(0)
+  stock      Int       @default(0)
+  sellerId   String
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+  companyId  String
+  reviews    Review[]
+  companyDetails Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  carts          Cart[]
+  items          OrderItem[]
+
+  imageURL    String?
+  description String?        @db.Text
+  status      MedicineStatus @default(ACTIVE)
+  expiryDate  DateTime
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
 
   @@index([sellerId])
   @@index([categoryId])
