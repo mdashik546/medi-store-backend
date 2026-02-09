@@ -4,15 +4,27 @@ import { cartServices } from "./cart.service";
 
 export const createCart = async (req: Request, res: Response) => {
   try {
-    const { medicineId } = req.query;
+    const { medicineId } = req.params;
+    const { quantity = 1 } = req.body;
     const authorId = req.user?.id;
+
     if (!authorId) {
-      throw new Error("You are unauthorized!!");
+      throw new Error("You are unauthorized!");
     }
-    const result = await cartServices.createCart(req.body, authorId as string);
+
+    if (!medicineId) {
+      throw new Error("Medicine id is required");
+    }
+
+    const result = await cartServices.createCart(
+      medicineId as string,
+      authorId,
+      quantity,
+    );
+
     res.status(201).json({
       success: true,
-      message: "cart created successfully.",
+      message: "Cart created successfully",
       data: result,
     });
   } catch (error) {
