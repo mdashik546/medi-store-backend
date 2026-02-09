@@ -12,6 +12,7 @@ import { companyRoutes } from "./modules/company/company.route";
 import { adminRoutes } from "./modules/admin/admin.route";
 import { orderRoutes } from "./modules/order/order.route";
 import { cartRoutes } from "./modules/cart/cart.route";
+import { sellerRoutes } from "./modules/seller/seller.route";
 
 const app: Application = express();
 app.use(express.json());
@@ -32,9 +33,9 @@ app.use("/api/seller/company", companyRoutes);
 app.use("/api/carts", cartRoutes);
 //order
 app.use("/api/orders", orderRoutes);
-//admin
-app.use("/api/admin/users", adminRoutes);
 
+//seller
+app.use("/api/seller/orders", sellerRoutes);
 app.get("/", (req: Request, res: Response) => {
   res.send("hellow world");
 });

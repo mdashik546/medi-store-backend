@@ -1,6 +1,6 @@
 import { prisma } from "../../lib/prisma";
 
-export const createCart = async (
+const createCart = async (
   medicineId: string,
   authorId: string,
   quantity = 1,
@@ -24,7 +24,10 @@ export const createCart = async (
     },
   });
 };
-
+const getAllCart = async () => {
+  return await prisma.cart.findMany();
+};
 export const cartServices = {
   createCart,
+  getAllCart,
 };

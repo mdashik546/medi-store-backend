@@ -1,6 +1,5 @@
 import { orderServices } from "./order.service";
 import type { Request, Response } from "express";
-import { UserRole } from "../../middleware/middleware";
 import { catchErrorMessage } from "../../middleware/catch-error-message";
 
 const createOrder = async (req: Request, res: Response) => {
@@ -10,10 +9,9 @@ const createOrder = async (req: Request, res: Response) => {
       throw new Error("Your are unauthorized!!");
     }
     const result = await orderServices.createOrder(req.body, userId as string);
-
     res.status(201).json({
       success: true,
-      message: "Order created Successfully",
+      message: "Order created successfully",
       data: result,
     });
   } catch (error) {
@@ -24,7 +22,11 @@ const createOrder = async (req: Request, res: Response) => {
 };
 const getAllOrder = async (req: Request, res: Response) => {
   try {
-    const result = await orderServices.getAllOrder();
+    const userId = req.user?.id;
+    if (!userId) {
+      throw new Error("Your are unauthorized!!");
+    }
+    const result = await orderServices.getAllOrder(userId as string);
     res.status(200).json({
       success: true,
       message: "All orders retrieved successfully.",
