@@ -20,17 +20,20 @@ const getAllOrder = async (req: Request, res: Response) => {
     catchErrorMessage(res, errorMessage);
   }
 };
-const update = async (req: Request, res: Response) => {
+const updateOrderStatus = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const userId = req.user?.id;
     if (!userId) {
       throw new Error("Your are unauthorized!!");
     }
-    const result = await sellerServices.update(id as string, req.body.status);
+    const result = await sellerServices.updateOrderStatus(
+      id as string,
+      req.body.orderStatus,
+    );
     res.status(200).json({
       success: true,
-      message: "Order status updated to PROCESSING successfully.",
+      message: "Order status updated successfully.",
       data: result,
     });
   } catch (error) {
@@ -41,5 +44,5 @@ const update = async (req: Request, res: Response) => {
 };
 export const sellerControllers = {
   getAllOrder,
-  update,
+  updateOrderStatus,
 };
