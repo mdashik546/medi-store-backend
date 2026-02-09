@@ -55,6 +55,9 @@ const updateMedicine = async (
   if (!isSeller && medicineInfo.sellerId !== sellerId) {
     throw new Error("Your are not owner/create of the medicine");
   }
+  if (typeof data.stock === "number" && data.stock < 0) {
+    throw new Error("Stock cannot be negative");
+  }
   return await prisma.medicine.update({
     where: {
       id,

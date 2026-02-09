@@ -1,4 +1,4 @@
-import type { Order } from "../../../generated/prisma/client";
+import { OrderStatus, type Order } from "../../../generated/prisma/client";
 import { prisma } from "../../lib/prisma";
 const createOrder = async (
   data: Omit<Order, "authorId" | "createdAt" | "updatedAt">,
@@ -58,7 +58,7 @@ const createOrder = async (
   });
 };
 
-const getAllOrder = async (authorId:string) => {
+const getAllOrder = async (authorId: string) => {
   return await prisma.order.findMany({
     where: { authorId },
     orderBy: {
@@ -66,6 +66,7 @@ const getAllOrder = async (authorId:string) => {
     },
   });
 };
+
 const singleOrder = async (id: string) => {
   const orderInfo = await prisma.order.findUnique({
     where: {
@@ -78,9 +79,30 @@ const singleOrder = async (id: string) => {
 
   return orderInfo;
 };
-
+const updateOrderStatus = async (id: string, authorId: string) => {
+  const order = await prisma.order.findUniqueOrThrow({
+    where: { id },
+    select: { id: true, orderStatus: true, authorId: true },
+  });
+  if (order.authorId !== authorId) {
+    throw new Error("You are not authorized to modify this order.");
+  }
+  if (
+    order.orderStatus === OrderStatus.CANCELLED ||
+    order.orderStatus === OrderStatus.DELIVERED
+  ) {
+    throw new Error(
+      `Cannot cancel an order with status '${order.orderStatus}'.`,
+    );
+  }
+  return await prisma.order.update({
+    where: { id },
+    data: { orderStatus: OrderStatus.CANCELLED },
+  });
+};
 export const orderServices = {
   createOrder,
   getAllOrder,
   singleOrder,
+  updateOrderStatus,
 };

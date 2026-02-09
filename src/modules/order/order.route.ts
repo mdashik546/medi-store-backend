@@ -5,5 +5,6 @@ const router = Router();
 router.post("/", middleware(UserRole.CUSTOMER), orderControllers.createOrder);
 router.get("/", middleware(UserRole.CUSTOMER), orderControllers.getAllOrder);
 router.get("/:id", middleware(UserRole.CUSTOMER), orderControllers.singleOrder);
+router.patch("/:id", middleware(UserRole.CUSTOMER), orderControllers.updateOrderStatus);
 
 export const orderRoutes = router;
