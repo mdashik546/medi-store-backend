@@ -24,10 +24,25 @@ const createCart = async (
     },
   });
 };
-const getAllCart = async () => {
-  return await prisma.cart.findMany();
+
+const getAllCart = async (authorId: string) => {
+  return await prisma.cart.findMany({
+    where: { authorId },
+    include: { medicine: true },
+  });
 };
+
+const singleCartDelete = async (id: string, authorId: string) => {
+  return await prisma.cart.delete({ where: { id, authorId } });
+};
+
+const deleteAllCart = async (authorId: string) => {
+  return await prisma.cart.deleteMany({ where: { authorId } });
+};
+
 export const cartServices = {
   createCart,
   getAllCart,
+  singleCartDelete,
+  deleteAllCart,
 };

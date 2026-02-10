@@ -40,7 +40,7 @@ const getAllCart = async (req: Request, res: Response) => {
       throw new Error("You are unauthorized!");
     }
 
-    const result = await cartServices.getAllCart();
+    const result = await cartServices.getAllCart(authorId);
 
     res.status(200).json({
       success: true,
@@ -53,8 +53,49 @@ const getAllCart = async (req: Request, res: Response) => {
     catchErrorMessage(res, errorMessage);
   }
 };
+const singleCartDelete = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const authorId = req.user?.id;
+    if (!authorId) {
+      throw new Error("You are unauthorized!");
+    }
+    const result = await cartServices.singleCartDelete(id as string, authorId);
+
+    res.status(200).json({
+      success: true,
+      message: "Cart delete successfully",
+      data: result,
+    });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Internal Server Error";
+    catchErrorMessage(res, errorMessage);
+  }
+};
+const deleteAllCart = async (req: Request, res: Response) => {
+  try {
+    const authorId = req.user?.id;
+    if (!authorId) {
+      throw new Error("You are unauthorized!");
+    }
+
+    const result = await cartServices.deleteAllCart(authorId);
+    res.status(200).json({
+      success: true,
+      message: "All Cart deleted successfully",
+      data: result,
+    });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Internal Server Error";
+    catchErrorMessage(res, errorMessage);
+  }
+};
 
 export const cartControllers = {
   createCart,
   getAllCart,
+  singleCartDelete,
+  deleteAllCart,
 };

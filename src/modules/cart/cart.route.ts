@@ -9,4 +9,14 @@ router.post(
   middleware(UserRole.CUSTOMER),
   cartControllers.createCart,
 );
+router.delete(
+  "/:id",
+  middleware(UserRole.CUSTOMER),
+  cartControllers.singleCartDelete,
+);
+router.delete(
+  "/",
+  middleware(UserRole.CUSTOMER),
+  cartControllers.deleteAllCart,
+);
 export const cartRoutes = router;
