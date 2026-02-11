@@ -15,6 +15,7 @@ const createMedicine = async (data: CreateMedicineInput, sellerId: string) => {
       expiryDate: new Date(data.expiryDate),
       sellerId,
       companyId: company.id,
+      categoryId: data.categoryId || null,
     },
   });
 };
@@ -57,6 +58,9 @@ const updateMedicine = async (
   }
   if (typeof data.stock === "number" && data.stock < 0) {
     throw new Error("Stock cannot be negative");
+  }
+  if ("categoryId" in data) {
+    data.categoryId = data.categoryId || null;
   }
   return await prisma.medicine.update({
     where: {

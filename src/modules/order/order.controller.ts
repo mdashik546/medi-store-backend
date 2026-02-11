@@ -59,10 +59,27 @@ const updateOrderStatus = async (req: Request, res: Response) => {
     const { id } = req.params;
     const userId = req.user?.id;
     if (!userId) throw new Error("Your are unauthorized!!");
-    const result = await orderServices.updateOrderStatus(id as string,userId);
+    const result = await orderServices.updateOrderStatus(id as string, userId);
     res.status(200).json({
       success: true,
       message: "Order cancelled successfully.",
+      data: result,
+    });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Internal Server Error";
+    catchErrorMessage(res, errorMessage);
+  }
+};
+const reOrder = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user?.id;
+    if (!userId) throw new Error("Your are unauthorized!!");
+    const result = await orderServices.reOrder(id as string, userId);
+    res.status(200).json({
+      success: true,
+      message: "Reorder created successfully.",
       data: result,
     });
   } catch (error) {
@@ -77,4 +94,5 @@ export const orderControllers = {
   getAllOrder,
   singleOrder,
   updateOrderStatus,
+  reOrder,
 };

@@ -1,4 +1,8 @@
-import { OrderStatus, type Order } from "../../../generated/prisma/client";
+import {
+  OrderStatus,
+  PaymentStatus,
+  type Order,
+} from "../../../generated/prisma/client";
 import { prisma } from "../../lib/prisma";
 const createOrder = async (
   data: Omit<Order, "authorId" | "createdAt" | "updatedAt">,
@@ -64,6 +68,9 @@ const getAllOrder = async (authorId: string) => {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      items: true,
+    },
   });
 };
 
@@ -71,6 +78,9 @@ const singleOrder = async (id: string) => {
   const orderInfo = await prisma.order.findUnique({
     where: {
       id,
+    },
+    include: {
+      items: true,
     },
   });
   if (!orderInfo) {
@@ -100,9 +110,40 @@ const updateOrderStatus = async (id: string, authorId: string) => {
     data: { orderStatus: OrderStatus.CANCELLED },
   });
 };
+
+const reOrder = async (id: string, authorId: string) => {
+  const oldOrder = await prisma.order.findUniqueOrThrow({
+    where: { id },
+    include: {
+      items: true,
+    },
+  });
+  if (oldOrder.authorId !== authorId) {
+    throw new Error("You are not authorized to reorder this order.");
+  }
+
+  return await prisma.order.create({
+    data: {
+      authorId,
+      address: oldOrder.address,
+      total: oldOrder.total,
+      paymentStatus: PaymentStatus.PENDING,
+      orderStatus: OrderStatus.PLACED,
+      items: {
+        create: oldOrder.items.map((item) => ({
+          medicineId: item.medicineId,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+      },
+    },
+    include: { items: true },
+  });
+};
 export const orderServices = {
   createOrder,
   getAllOrder,
   singleOrder,
   updateOrderStatus,
+  reOrder,
 };
