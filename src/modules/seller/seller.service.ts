@@ -6,6 +6,7 @@ const getAllOrder = async () => {
     orderBy: {
       createdAt: "desc",
     },
+    include: { author: true },
   });
 };
 const updateOrderStatus = async (id: string, status: OrderStatus) => {

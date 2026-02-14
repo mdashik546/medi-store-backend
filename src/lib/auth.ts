@@ -113,4 +113,12 @@ export const auth = betterAuth({
       }
     },
   },
+  callbacks: {
+    signIn: async ({ user }: any) => {
+      if (user.status === "INACTIVE") {
+        return false;
+      }
+      return true;
+    },
+  },
 });

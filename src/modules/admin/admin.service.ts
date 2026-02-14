@@ -1,8 +1,17 @@
 import { prisma } from "../../lib/prisma";
 
-export const getAllUser = async () => {
+const getAllUser = async () => {
   return await prisma.user.findMany();
 };
+
+const getAllOrder = async () => {
+  return await prisma.order.findMany({
+    include: {
+      author: true,
+    },
+  });
+};
+
 export const update = async (userId: string) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
@@ -28,4 +37,5 @@ export const update = async (userId: string) => {
 export const adminServices = {
   getAllUser,
   update,
+  getAllOrder,
 };

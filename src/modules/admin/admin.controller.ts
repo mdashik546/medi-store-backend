@@ -9,9 +9,27 @@ export const getAllUser = async (req: Request, res: Response) => {
       throw new Error("You are unauthorized!!");
     }
     const result = await adminServices.getAllUser();
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       message: "All users retrieved successfully.",
+      data: result,
+    });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Internal Server Error";
+    catchErrorMessage(res, errorMessage);
+  }
+};
+export const getAllOrder = async (req: Request, res: Response) => {
+  try {
+    const adminId = req.user?.id;
+    if (!adminId) {
+      throw new Error("You are unauthorized!!");
+    }
+    const result = await adminServices.getAllOrder();
+    res.status(200).json({
+      success: true,
+      message: "All Orders retrieved successfully.",
       data: result,
     });
   } catch (error) {
@@ -43,4 +61,5 @@ export const update = async (req: Request, res: Response) => {
 export const adminControllers = {
   getAllUser,
   update,
+  getAllOrder,
 };

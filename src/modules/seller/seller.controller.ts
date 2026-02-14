@@ -21,6 +21,7 @@ const getAllOrder = async (req: Request, res: Response) => {
   }
 };
 const updateOrderStatus = async (req: Request, res: Response) => {
+  console.log(req.body.orderStatus);
   try {
     const { id } = req.params;
     const userId = req.user?.id;

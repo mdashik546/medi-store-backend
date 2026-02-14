@@ -36,6 +36,8 @@ app.use("/api/orders", orderRoutes);
 
 //seller
 app.use("/api/seller/orders", sellerRoutes);
+//admin
+app.use("/api/admin/users", adminRoutes);
 app.get("/", (req: Request, res: Response) => {
   res.send("hellow world");
 });
