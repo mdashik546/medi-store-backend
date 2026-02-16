@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({
     origin: [
-        "https://medi-store-frontend-tau.vercel.app",
+        "https://medi-store-frontend-pi.vercel.app",
         "http://localhost:3000",
     ],
     credentials: true,

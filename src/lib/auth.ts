@@ -15,15 +15,20 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  baseURL: "https://medi-store-frontend-tau.vercel.app",
-  trustedOrigins: ["https://medi-store-frontend-tau.vercel.app"],
+  trustedOrigins: [
+    "https://medi-store-frontend-pi.vercel.app",
+    "http://localhost:3000",
+  ],
   cookies: {
     secure: true,
     sameSite: "none",
     httpOnly: true,
     path: "/",
   },
-
+  advanced: {
+    useSecureCookies: true,
+  },
+  
   user: {
     additionalFields: {
       role: {
