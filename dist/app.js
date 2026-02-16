@@ -15,7 +15,6 @@ app.use(cors({
     origin: [
         "https://medi-store-frontend-tau.vercel.app",
         "http://localhost:3000",
-        "http://192.168.0.104:3000",
     ],
     credentials: true,
 }));
