@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { catchErrorMessage } from "../../middleware/catch-error-message";
-import { cartServices } from "./cart.service";
+import { catchErrorMessage } from "../../middleware/catch-error-message.js";
+import { cartServices } from "./cart.service.js";
 
 export const createCart = async (req: Request, res: Response) => {
   try {

@@ -1,5 +1,5 @@
-import type { Medicine } from "../../../generated/prisma/client";
-import { prisma } from "../../lib/prisma";
+import { Medicine } from "../../generated/prisma/client.js";
+import { prisma } from "../../lib/prisma.js";
 type CreateMedicineInput = Omit<Medicine, "createdAt" | "updatedAt">;
 const createMedicine = async (data: CreateMedicineInput, sellerId: string) => {
   const company = await prisma.company.findFirst({

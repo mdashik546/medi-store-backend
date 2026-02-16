@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { medicineControllers } from "./medicine.controller";
-import { middleware, UserRole } from "../../middleware/middleware";
+import { medicineControllers } from "./medicine.controller.js";
+import { middleware, UserRole } from "../../middleware/middleware.js";
 const router = Router();
 router.post(
   "/",

@@ -1,4 +1,4 @@
-import { auth } from "./lib/auth";
+import { auth } from "./lib/auth.js";
 import express, {
   type Application,
   type Request,
@@ -6,19 +6,23 @@ import express, {
 } from "express";
 import cors from "cors";
 import { toNodeHandler } from "better-auth/node";
-import { notFound } from "./middleware/not-found";
-import { medicineRoutes } from "./modules/medicine/medicine.route";
-import { companyRoutes } from "./modules/company/company.route";
-import { adminRoutes } from "./modules/admin/admin.route";
-import { orderRoutes } from "./modules/order/order.route";
-import { cartRoutes } from "./modules/cart/cart.route";
-import { sellerRoutes } from "./modules/seller/seller.route";
+import { notFound } from "./middleware/not-found.js";
+import { medicineRoutes } from "./modules/medicine/medicine.route.js";
+import { companyRoutes } from "./modules/company/company.route.js";
+import { adminRoutes } from "./modules/admin/admin.route.js";
+import { orderRoutes } from "./modules/order/order.route.js";
+import { cartRoutes } from "./modules/cart/cart.route.js";
+import { sellerRoutes } from "./modules/seller/seller.route.js";
 
 const app: Application = express();
 app.use(express.json());
+
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://192.168.0.104:3000"],
+    origin: [
+      "https://medi-store-frontend-tau.vercel.app",
+      "http://localhost:3000",
+    ],
     credentials: true,
   }),
 );

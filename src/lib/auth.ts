@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { prisma } from "./prisma";
+import { prisma } from "./prisma.js";
 import nodemailer from "nodemailer";
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -15,7 +15,10 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  trustedOrigins: ["http://localhost:3000", "http://192.168.0.104:3000"],
+  trustedOrigins: [
+    "https://medi-store-frontend-tau.vercel.app/",
+    "http://localhost:3000",
+  ],
 
   user: {
     additionalFields: {

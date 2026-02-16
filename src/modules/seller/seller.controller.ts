@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { catchErrorMessage } from "../../middleware/catch-error-message";
-import { sellerServices } from "./seller.service";
+import { catchErrorMessage } from "../../middleware/catch-error-message.js";
+import { sellerServices } from "./seller.service.js";
 
 const getAllOrder = async (req: Request, res: Response) => {
   try {

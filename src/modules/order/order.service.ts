@@ -2,8 +2,8 @@ import {
   OrderStatus,
   PaymentStatus,
   type Order,
-} from "../../../generated/prisma/client";
-import { prisma } from "../../lib/prisma";
+} from "../../generated/prisma/client.js";
+import { prisma } from "../../lib/prisma.js";
 const createOrder = async (
   data: Omit<Order, "authorId" | "createdAt" | "updatedAt">,
   authorId: string,

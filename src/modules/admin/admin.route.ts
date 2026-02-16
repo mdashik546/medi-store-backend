@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { middleware, UserRole } from "../../middleware/middleware";
-import { adminControllers } from "./admin.controller";
+import { middleware, UserRole } from "../../middleware/middleware.js";
+import { adminControllers } from "./admin.controller.js";
 
 const router = Router();
 router.get("/", middleware(UserRole.ADMIN), adminControllers.getAllUser);

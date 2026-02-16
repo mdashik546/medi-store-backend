@@ -1,5 +1,5 @@
-import type { Company } from "../../../generated/prisma/client";
-import { prisma } from "../../lib/prisma";
+import { Company } from "../../generated/prisma/client.js";
+import { prisma } from "../../lib/prisma.js";
 
 export const createCompany = async (data: Company) => {
   return await prisma.company.create({

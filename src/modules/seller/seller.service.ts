@@ -1,5 +1,5 @@
-import type { OrderStatus } from "../../../generated/prisma/enums";
-import { prisma } from "../../lib/prisma";
+import type { OrderStatus } from "../../generated/prisma/enums.js";
+import { prisma } from "../../lib/prisma.js";
 
 const getAllOrder = async () => {
   return await prisma.order.findMany({

@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { medicineServices } from "./medicine.service";
-import { UserRole } from "../../middleware/middleware";
-import { catchErrorMessage } from "../../middleware/catch-error-message";
+import { medicineServices } from "./medicine.service.js";
+import { UserRole } from "../../middleware/middleware.js";
+import { catchErrorMessage } from "../../middleware/catch-error-message.js";
 
 const createMedicine = async (req: Request, res: Response) => {
   try {

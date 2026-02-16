@@ -1,7 +1,6 @@
-import { orderServices } from "./order.service";
+import { orderServices } from "./order.service.js";
 import type { Request, Response } from "express";
-import { catchErrorMessage } from "../../middleware/catch-error-message";
-import { UserRole } from "../../middleware/middleware";
+import { catchErrorMessage } from "../../middleware/catch-error-message.js";
 
 const createOrder = async (req: Request, res: Response) => {
   try {

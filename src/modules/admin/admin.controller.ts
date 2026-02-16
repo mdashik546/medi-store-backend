@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { catchErrorMessage } from "../../middleware/catch-error-message";
-import { adminServices } from "./admin.service";
+import { catchErrorMessage } from "../../middleware/catch-error-message.js";
+import { adminServices } from "./admin.service.js";
 
 export const getAllUser = async (req: Request, res: Response) => {
   try {

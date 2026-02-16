@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { middleware, UserRole } from "../../middleware/middleware";
-import { companyControllers } from "./company.controller";
+import { middleware, UserRole } from "../../middleware/middleware.js";
+import { companyControllers } from "./company.controller.js";
 
 const router = Router();
 router.post("/", middleware(UserRole.SELLER), companyControllers.createCompany);

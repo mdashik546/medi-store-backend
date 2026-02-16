@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { companyServices } from "./company.service";
-import { catchErrorMessage } from "../../middleware/catch-error-message";
+import { companyServices } from "./company.service.js";
+import { catchErrorMessage } from "../../middleware/catch-error-message.js";
 
 export const createCompany = async (req: Request, res: Response) => {
   try {
