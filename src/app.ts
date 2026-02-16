@@ -1,9 +1,5 @@
 import { auth } from "./lib/auth.js";
-import express, {
-  type Application,
-  type Request,
-  type Response,
-} from "express";
+import express, { type Application, type Response } from "express";
 import cors from "cors";
 import { toNodeHandler } from "better-auth/node";
 import { notFound } from "./middleware/not-found.js";
@@ -42,7 +38,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/seller/orders", sellerRoutes);
 //admin
 app.use("/api/admin/users", adminRoutes);
-app.get("/", (req: Request, res: Response) => {
+app.get("/", (_, res: Response) => {
   res.send("hellow world");
 });
 

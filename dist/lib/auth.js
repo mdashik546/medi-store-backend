@@ -15,10 +15,14 @@ export const auth = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql",
     }),
-    trustedOrigins: [
-        "https://medi-store-frontend-tau.vercel.app/",
-        "http://localhost:3000",
-    ],
+    baseURL: "https://medi-store-frontend-tau.vercel.app",
+    trustedOrigins: ["https://medi-store-frontend-tau.vercel.app"],
+    cookies: {
+        secure: true,
+        sameSite: "none",
+        httpOnly: true,
+        path: "/",
+    },
     user: {
         additionalFields: {
             role: {
@@ -114,14 +118,6 @@ export const auth = betterAuth({
             catch (error) {
                 throw error;
             }
-        },
-    },
-    callbacks: {
-        signIn: async ({ user }) => {
-            if (user.status === "INACTIVE") {
-                return false;
-            }
-            return true;
         },
     },
 });

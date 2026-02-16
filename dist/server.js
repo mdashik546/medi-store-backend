@@ -1,6 +1,6 @@
 import app from "./app.js";
 import { prisma } from "./lib/prisma.js";
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 async function main() {
     try {
         await prisma.$connect();
