@@ -9,16 +9,14 @@ import { adminRoutes } from "./modules/admin/admin.route.js";
 import { orderRoutes } from "./modules/order/order.route.js";
 import { cartRoutes } from "./modules/cart/cart.route.js";
 import { sellerRoutes } from "./modules/seller/seller.route.js";
+import { envVars } from "./config/env.js";
 
 const app: Application = express();
 app.use(express.json());
 
 app.use(
   cors({
-    origin: [
-      "https://medi-store-frontend-pi.vercel.app",
-      "http://localhost:3000",
-    ],
+    origin: [envVars.FRONTEND_PUBLIC_URL, "http://localhost:3000"],
     credentials: true,
   }),
 );

@@ -1,13 +1,13 @@
 import app from "./app.js";
 import { prisma } from "./lib/prisma.js";
+import { envVars } from "./config/env.js";
 
-const PORT = process.env.PORT;
 async function main() {
   try {
     await prisma.$connect();
     console.log(`database connection`);
-    app.listen(PORT, () => {
-      console.log(`server is running ${PORT}`);
+    app.listen(envVars.PORT, () => {
+      console.log(`server is running ${envVars.PORT}`);
     });
   } catch (error) {
     console.log(error);
@@ -16,4 +16,3 @@ async function main() {
   }
 }
 main();
-

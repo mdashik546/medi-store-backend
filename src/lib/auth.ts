@@ -2,23 +2,21 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma.js";
 import nodemailer from "nodemailer";
+import { envVars } from "../config/env.js";
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
   secure: false,
   auth: {
-    user: process.env.APP_USER,
-    pass: process.env.APP_PASS,
+    user: envVars.APP_USER,
+    pass: envVars.APP_PASS,
   },
 });
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  trustedOrigins: [
-    "https://medi-store-frontend-pi.vercel.app",
-    "http://localhost:3000",
-  ],
+  trustedOrigins: [envVars.FRONTEND_PUBLIC_URL, "http://localhost:3000"],
   cookies: {
     secure: true,
     sameSite: "none",
@@ -28,7 +26,7 @@ export const auth = betterAuth({
   advanced: {
     useSecureCookies: true,
   },
-  
+
   user: {
     additionalFields: {
       role: {
@@ -53,7 +51,7 @@ export const auth = betterAuth({
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url, token }, request) => {
       try {
-        const verificationUrl = `${process.env.APP_USER}/email-verify?token=${token}`;
+        const verificationUrl = `${envVars.APP_USER}/email-verify?token=${token}`;
         await transporter.sendMail({
           from: '"mediStore" <medistore.@ph.com>',
           to: user.email,
