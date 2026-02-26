@@ -12,7 +12,7 @@ const getAllOrder = async () => {
   });
 };
 
-export const update = async (userId: string) => {
+const update = async (userId: string) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
       id: userId,
@@ -33,9 +33,20 @@ export const update = async (userId: string) => {
     },
   });
 };
+const getAllCategory = async () => {
+  return await prisma.category.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      medicines: true,
+    },
+  });
+};
 
 export const adminServices = {
   getAllUser,
   update,
   getAllOrder,
+  getAllCategory,
 };

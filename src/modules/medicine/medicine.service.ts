@@ -1,22 +1,42 @@
 import { Medicine } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
-type CreateMedicineInput = Omit<Medicine, "createdAt" | "updatedAt">;
-const createMedicine = async (data: CreateMedicineInput, sellerId: string) => {
-  const company = await prisma.company.findFirst({
-    orderBy: { createdAt: "desc" },
-  });
-  if (!company) {
-    throw new Error("Company not found. Please create the company first.");
-  }
+import { ICategoryAndMedicinePayload } from "./medicine.interface.js";
 
-  return await prisma.medicine.create({
-    data: {
-      ...data,
-      expiryDate: new Date(data.expiryDate),
-      sellerId,
-      companyId: company.id,
-      categoryId: data.categoryId || null,
-    },
+const createMedicine = async (
+  {
+    categoryName,
+    name,
+    price,
+    stock,
+    expiryDate,
+    imageURL,
+    description,
+  }: ICategoryAndMedicinePayload,
+  sellerId: string,
+) => {
+  return await prisma.$transaction(async (tx) => {
+    let category = await tx.category.findFirst({
+      where: { categoryName },
+    });
+
+    if (!category) {
+      category = await tx.category.create({
+        data: { categoryName },
+      });
+    }
+    const medicine = await tx.medicine.create({
+      data: {
+        name,
+        price,
+        stock,
+        expiryDate: new Date(expiryDate),
+        imageURL,
+        description,
+        sellerId,
+        categoryId: category.id,
+      },
+    });
+    return { category, medicine };
   });
 };
 const getMedicine = async () => {
@@ -38,6 +58,7 @@ const singleMedicine = async (id: string) => {
 
   return medicineInfo;
 };
+
 const updateMedicine = async (
   id: string,
   data: Partial<Medicine>,
@@ -59,16 +80,20 @@ const updateMedicine = async (
   if (typeof data.stock === "number" && data.stock < 0) {
     throw new Error("Stock cannot be negative");
   }
-  if ("categoryId" in data) {
-    data.categoryId = data.categoryId || null;
-  }
+
   return await prisma.medicine.update({
     where: {
       id,
     },
-    data,
+    data:{
+      name: data.name,
+      price: data.price,
+      stock: data.stock,
+      description: data.description,
+    },
   });
 };
+
 const deleteMedicine = async (
   id: string,
   sellerId: string,
@@ -81,15 +106,24 @@ const deleteMedicine = async (
     select: {
       id: true,
       sellerId: true,
+      categoryId: true,
     },
   });
   if (!isSeller && medicineInfo.sellerId !== sellerId) {
     throw new Error("Your are not owner/create of the medicine");
   }
-  return await prisma.medicine.delete({
-    where: {
-      id: medicineInfo.id,
-    },
+
+  return await prisma.$transaction(async (tx) => {
+    await tx.medicine.delete({
+      where: {
+        id: medicineInfo.id,
+      },
+    });
+    await tx.category.delete({
+      where: {
+        id: medicineInfo.categoryId,
+      },
+    });
   });
 };
 
