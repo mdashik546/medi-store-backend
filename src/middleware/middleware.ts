@@ -16,12 +16,12 @@ export const middleware = (...roles: string[]) => {
           message: "You are unauthorized",
         });
       }
-      if (!session.user.emailVerified) {
-        return res.status(403).json({
-          success: false,
-          message: "Email verfication requried!. Please verify your email",
-        });
-      }
+      // if (!session.user.emailVerified) {
+      //   return res.status(403).json({
+      //     success: false,
+      //     message: "Email verfication requried!. Please verify your email",
+      //   });
+      // }
       req.user = {
         id: session.user.id,
         name: session.user.name,

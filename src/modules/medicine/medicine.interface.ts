@@ -1,3 +1,4 @@
+/*
 model Medicine {
   id         String    @id @default(uuid())
   name       String    @db.VarChar(100)
@@ -22,9 +23,13 @@ model Medicine {
   @@index([categoryId])
   @@map("medicines")
 }
-
-enum MedicineStatus {
-  ACTIVE
-  INACTIVE
-  OUT_OF_STOCK
+*/
+export interface ICategoryAndMedicinePayload {
+  categoryName: string;  
+  name: string;
+  price: number;
+  stock: number;
+  expiryDate: string;
+  imageURL?: string;
+  description?: string;
 }

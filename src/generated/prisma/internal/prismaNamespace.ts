@@ -390,7 +390,6 @@ export const ModelName = {
   Verification: 'Verification',
   Cart: 'Cart',
   Category: 'Category',
-  Company: 'Company',
   Medicine: 'Medicine',
   OrderItem: 'OrderItem',
   Order: 'Order',
@@ -410,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "cart" | "category" | "company" | "medicine" | "orderItem" | "order" | "review"
+    modelProps: "user" | "session" | "account" | "verification" | "cart" | "category" | "medicine" | "orderItem" | "order" | "review"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -858,80 +857,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Company: {
-      payload: Prisma.$CompanyPayload<ExtArgs>
-      fields: Prisma.CompanyFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.CompanyFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.CompanyFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>
-        }
-        findFirst: {
-          args: Prisma.CompanyFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.CompanyFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>
-        }
-        findMany: {
-          args: Prisma.CompanyFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>[]
-        }
-        create: {
-          args: Prisma.CompanyCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>
-        }
-        createMany: {
-          args: Prisma.CompanyCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.CompanyCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>[]
-        }
-        delete: {
-          args: Prisma.CompanyDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>
-        }
-        update: {
-          args: Prisma.CompanyUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>
-        }
-        deleteMany: {
-          args: Prisma.CompanyDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.CompanyUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CompanyUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>[]
-        }
-        upsert: {
-          args: Prisma.CompanyUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>
-        }
-        aggregate: {
-          args: Prisma.CompanyAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateCompany>
-        }
-        groupBy: {
-          args: Prisma.CompanyGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.CompanyGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.CompanyCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.CompanyCountAggregateOutputType> | number
-        }
-      }
-    }
     Medicine: {
       payload: Prisma.$MedicinePayload<ExtArgs>
       fields: Prisma.MedicineFieldRefs
@@ -1341,25 +1266,12 @@ export type CartScalarFieldEnum = (typeof CartScalarFieldEnum)[keyof typeof Cart
 
 export const CategoryScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  slug: 'slug',
-  description: 'description',
-  status: 'status',
+  categoryName: 'categoryName',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
-
-
-export const CompanyScalarFieldEnum = {
-  id: 'id',
-  companyName: 'companyName',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
 
 
 export const MedicineScalarFieldEnum = {
@@ -1370,7 +1282,6 @@ export const MedicineScalarFieldEnum = {
   stock: 'stock',
   sellerId: 'sellerId',
   categoryId: 'categoryId',
-  companyId: 'companyId',
   imageURL: 'imageURL',
   description: 'description',
   status: 'status',
@@ -1496,20 +1407,6 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
- * Reference to a field of type 'CategoryStatus'
- */
-export type EnumCategoryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryStatus'>
-    
-
-
-/**
- * Reference to a field of type 'CategoryStatus[]'
- */
-export type ListEnumCategoryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryStatus[]'>
     
 
 
@@ -1669,7 +1566,6 @@ export type GlobalOmitConfig = {
   verification?: Prisma.VerificationOmit
   cart?: Prisma.CartOmit
   category?: Prisma.CategoryOmit
-  company?: Prisma.CompanyOmit
   medicine?: Prisma.MedicineOmit
   orderItem?: Prisma.OrderItemOmit
   order?: Prisma.OrderOmit

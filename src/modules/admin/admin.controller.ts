@@ -57,9 +57,25 @@ export const update = async (req: Request, res: Response) => {
     catchErrorMessage(res, errorMessage);
   }
 };
+export const getAllCategory = async (req: Request, res: Response) => {
+  try {
+  
+    const result = await adminServices.getAllCategory();
+    res.status(200).json({
+      success: true,
+      message: "All categories retrieved successfully.",
+      data: result,
+    });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Internal Server Error";
+    catchErrorMessage(res, errorMessage);
+  }
+};
 
 export const adminControllers = {
   getAllUser,
   update,
   getAllOrder,
+  getAllCategory,
 };

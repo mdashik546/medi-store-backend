@@ -9,14 +9,6 @@
 * 🟢 You can import this file directly.
 */
 
-export const CategoryStatus = {
-  ACTIVE: 'ACTIVE',
-  INACTIVE: 'INACTIVE'
-} as const
-
-export type CategoryStatus = (typeof CategoryStatus)[keyof typeof CategoryStatus]
-
-
 export const MedicineStatus = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
