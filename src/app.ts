@@ -17,6 +17,7 @@ app.use(
 );
 app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use("/api", indexRoutes);
+//not found handler should be the last middleware
 app.use(notFound);
 
 export default app;
